@@ -13,11 +13,11 @@ class Smartwatch : Device, IPowerNotifier
                 throw new ArgumentOutOfRangeException("Battery level must be between 0 and 100");
             batteryLevel = value;
             if (batteryLevel < 20)
-                Notify();
+                NotifyBattery();
         }
     }
 
-    public void Notify()
+    public void NotifyBattery()
     {
         Console.WriteLine($"Battery level is low: {batteryLevel}");
     }
@@ -28,6 +28,11 @@ class Smartwatch : Device, IPowerNotifier
         BatteryLevel -= 10;
         IsTurnedOn = true;
         Console.WriteLine("Smartwatch is turned on");
+    }
+
+    public override string ToString()
+    {
+        return $"Smartwatch Id: {Id}, Name: {Name}, Is turned on: {IsTurnedOn}, Battery Level: {BatteryLevel}";
     }
 }
 

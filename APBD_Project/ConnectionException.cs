@@ -2,5 +2,5 @@ namespace APBD_Project;
 
 public class ConnectionException : Exception
 {
-    public ConnectionException(string message) : base(message) { }
+    public ConnectionException(string msg) : base(msg) { }
 }

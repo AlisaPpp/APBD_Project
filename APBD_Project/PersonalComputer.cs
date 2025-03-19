@@ -11,4 +11,10 @@ class PersonalComputer : Device
         IsTurnedOn = true;
         Console.WriteLine("Personal computer is turned on");
     }
+    
+    public override string ToString()
+    {
+        return $"Personal computer Id: {Id}, Name: {Name}, Is turned on: {IsTurnedOn}, " +
+               $"Operating system: {OperatingSystem}";
+    }
 }

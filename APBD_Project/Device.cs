@@ -8,4 +8,6 @@ abstract class Device
     
     public abstract void TurnOn();
     public void TurnOff() => IsTurnedOn = false;
+
+    public abstract override string ToString();
 }

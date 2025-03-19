@@ -31,4 +31,10 @@ class EmbeddedDevice : Device
             throw new ConnectionException("Cannot connect to network that is not MD Ltd.");
         Console.WriteLine("Connected to network");
     }
+    
+    public override string ToString()
+    {
+        return $"Embedded device Id: {Id}, Name: {Name}, Is turned on: {IsTurnedOn}, IP address: {IpAddress}," +
+               $" Network name: {NetworkName}";
+    }
 }
