@@ -21,11 +21,9 @@ dm.EditDevice("LinuxPC", "IsTurnedOn", false);
 
 dm.ShowAllDevices();
 
-//Adding devices
 dm.AddDevice(pc);
 dm.AddDevice(sw);
 
-//Turning on
 dm.TurnOn("ThinkPad T440");
 dm.TurnOn("LinuxPC");
 dm.TurnOn("Pi4");
