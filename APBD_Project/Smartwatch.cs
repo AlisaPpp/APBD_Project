@@ -24,10 +24,16 @@ class Smartwatch : Device, IPowerNotifier
 
     public override void TurnOn()
     {
-        if (BatteryLevel < 11) throw new EmptyBatteryException("Battery level is low");
-        BatteryLevel -= 10;
-        IsTurnedOn = true;
-        Console.WriteLine("Smartwatch is turned on");
+        if (IsTurnedOn != false)
+        {
+            Console.WriteLine("The device is already turned on");
+        } else 
+        {
+            if (BatteryLevel < 11) throw new EmptyBatteryException("Cannot be turned on: battery level is too low");
+            BatteryLevel -= 10;
+            IsTurnedOn = true;
+            Console.WriteLine("Smartwatch is turned on");
+        }
     }
 
     public override string ToString()
