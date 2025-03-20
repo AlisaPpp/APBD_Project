@@ -6,6 +6,8 @@ class PersonalComputer : Device
 
     public override void TurnOn()
     {
+        if (IsTurnedOn != false)
+            Console.WriteLine($"The device {Name} is already turned on");
         if (string.IsNullOrEmpty(OperatingSystem)) 
             throw new EmptySystemException("Operating system isn't installed");
         IsTurnedOn = true;

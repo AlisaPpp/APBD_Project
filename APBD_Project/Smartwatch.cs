@@ -26,7 +26,7 @@ class Smartwatch : Device, IPowerNotifier
     {
         if (IsTurnedOn != false)
         {
-            Console.WriteLine("The device is already turned on");
+            Console.WriteLine($"The device {Name} is already turned on");
         } else 
         {
             if (BatteryLevel < 11) throw new EmptyBatteryException("Cannot be turned on: battery level is too low");

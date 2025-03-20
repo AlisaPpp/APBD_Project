@@ -87,15 +87,37 @@ class DeviceManager
             Console.WriteLine($"Device with name '{Name}' not found.");
     }
 
-    public void EditDevice(string Name, Device device)
+    public void EditDevice(string Name, string property, object newValue)
     {
-        var index = devices.FindIndex(x => x.Name == Name);
+        var device = devices.Find(x => x.Name == Name);
 
-        if (index >= 0) 
-            devices[index] = device;
-        else 
+        if (device == null)
+        {
             Console.WriteLine($"Device with name '{Name}' not found.");
-        
+            return;
+        }
+
+        var propertyInfo = device.GetType().GetProperty(property);
+
+        if (propertyInfo == null)
+        {
+            Console.WriteLine($"Property '{property}' not found in device '{Name}'.");
+            return;
+        }
+
+        try
+        {
+            object boxed = device; 
+
+            var convertedValue = Convert.ChangeType(newValue, propertyInfo.PropertyType);
+            propertyInfo.SetValue(boxed, convertedValue);
+
+            Console.WriteLine($"Successfully updated {property} of '{Name}' to '{newValue}'");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Failed to update property '{property}' of '{Name}'. Error: {e.Message}");
+        }
     }
 
     public void TurnOn(string Name)

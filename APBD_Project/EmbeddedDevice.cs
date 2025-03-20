@@ -35,6 +35,8 @@ class EmbeddedDevice : Device
 
     public override void TurnOn()
     {
+        if (IsTurnedOn != false)
+            Console.WriteLine($"The device {Name} is already turned on");
         Connect();
         IsTurnedOn = true;
         Console.WriteLine("Embedded device is turned on");
