@@ -1,9 +1,9 @@
 namespace APBD_Project;
 
-class DeviceManager
+public class DeviceManager
 {
     private const int max = 15;
-    private List<Device> devices = new List<Device>();
+    public List<Device> devices = new List<Device>();
     private string filePath;
 
     public DeviceManager(string filePath)
@@ -159,4 +159,5 @@ class DeviceManager
         }
         File.WriteAllLines(path, lines);
     }
+    
 }

@@ -1,6 +1,6 @@
 namespace APBD_Project;
 
-class PersonalComputer : Device
+public class PersonalComputer : Device
 {
     public string OperatingSystem { get; set; }
 

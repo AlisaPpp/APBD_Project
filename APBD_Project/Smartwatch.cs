@@ -1,6 +1,6 @@
 namespace APBD_Project;
 
-class Smartwatch : Device, IPowerNotifier
+public class Smartwatch : Device, IPowerNotifier
 {
     private int batteryLevel;
 

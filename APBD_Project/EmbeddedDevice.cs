@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace APBD_Project;
 
-class EmbeddedDevice : Device
+public class EmbeddedDevice : Device
 {
     private string ipAddress;
     public string NetworkName { get; set; }

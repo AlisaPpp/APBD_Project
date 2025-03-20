@@ -1,6 +1,6 @@
 namespace APBD_Project;
 
-abstract class Device
+public abstract class Device
 {
     public int Id { get; set; }
     public string Name { get; set; }
