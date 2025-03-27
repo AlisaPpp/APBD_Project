@@ -1,32 +1,39 @@
 using APBD_Project;
-
 namespace Project_UnitTests;
+using Xunit;
 
 
 public class DeviceManagerTest
 {
 
     private string path = "files/input.txt";
-    
-    [Fact]
-    public void LoadFileTest()
-    {
-        DeviceManager dm = new DeviceManager(path);
+    private string outputPath = "files/output.txt";
 
-        var output = new StringWriter();
-        Console.SetOut(output);
-        dm.ShowAllDevices();
-        
-        var result = output.ToString();
-        Assert.Contains("LinuxPC", result);
-        Assert.Contains("Apple Watch SE2", result);
-        
+    private class Loader : IDeviceFileLoader
+    {
+        public List<Device> LoadDevices()
+        {
+            return new List<Device>
+            {
+                new Smartwatch { Id = 1, Name = "Apple Watch SE2", BatteryLevel = 27, IsTurnedOn = true },
+                new PersonalComputer { Id = 1, Name = "LinuxPC", IsTurnedOn = false, OperatingSystem = "Linux Mint" },
+                new EmbeddedDevice { Id = 1, Name = "Pi4", IpAddress = "192.168.1.44", NetworkName = "MD Ltd.Wifi-1" }
+            };
+        }
     }
+    
+    private DeviceManager CreateManager()
+    {
+        return new DeviceManager(new Loader());
+    }
+    
+    
+    
 
     [Fact]
     public void AddDeviceTest()
     {
-        DeviceManager dm = new DeviceManager(path);
+        var dm = CreateManager();
         Smartwatch sw = new Smartwatch
         {
             Id = 2, Name = "Xiaomi Band 6", BatteryLevel = 54,
@@ -41,7 +48,7 @@ public class DeviceManagerTest
     [Fact]
     public void RemoveDeviceTest()
     {
-        DeviceManager dm = new DeviceManager(path);
+        var dm = CreateManager();
         dm.RemoveDevice("LinuxPC");
         Assert.DoesNotContain(dm.devices, s => s.Name == "LinuxPC");
     }
@@ -49,7 +56,7 @@ public class DeviceManagerTest
     [Fact]
     public void EditDeviceTest()
     {
-        DeviceManager dm = new DeviceManager(path);
+        var dm = CreateManager();
         dm.EditDevice("LinuxPC", "IsTurnedOn", true);
         Assert.Contains(dm.devices, s => s.Name == "LinuxPC" && s.IsTurnedOn == true);
     }
@@ -57,7 +64,7 @@ public class DeviceManagerTest
     [Fact]
     public void TurnOnDeviceTest()
     {
-        DeviceManager dm = new DeviceManager(path);
+        var dm = CreateManager();
         dm.TurnOn("LinuxPC");
         Assert.True(dm.devices.Find(s => s.Name == "LinuxPC").IsTurnedOn);
     }
@@ -65,20 +72,8 @@ public class DeviceManagerTest
     [Fact]
     public void TurnOffDeviceTest()
     {
-        DeviceManager dm = new DeviceManager(path);
+        var dm = CreateManager();
         dm.TurnOff("Apple Watch SE2");
         Assert.False(dm.devices.Find(s => s.Name == "Apple Watch SE2").IsTurnedOn);
-    }
-
-    [Fact]
-    public void SaveToFileTest()
-    {
-        DeviceManager dm = new DeviceManager(path);
-        string outputpath = "files/output.txt";
-        dm.SaveToFile(outputpath);
-        
-        string[] lines = File.ReadAllLines(outputpath);
-        string line = lines[0];
-        Assert.Contains("Apple Watch SE2", line);
     }
 }

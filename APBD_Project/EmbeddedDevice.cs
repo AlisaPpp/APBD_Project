@@ -2,7 +2,10 @@ using System.Text.RegularExpressions;
 
 namespace APBD_Project;
 
-public class EmbeddedDevice : Device
+/// <summary>
+/// This class rovides additional information about the Embedded Devices, such as their IP address and Network Name
+/// </summary>
+public class EmbeddedDevice : Device, IConnectable
 {
     private string ipAddress;
     public string NetworkName { get; set; }
@@ -35,11 +38,8 @@ public class EmbeddedDevice : Device
 
     public override void TurnOn()
     {
-        if (IsTurnedOn != false)
-            Console.WriteLine($"The device {Name} is already turned on");
+        base.TurnOn();
         Connect();
-        IsTurnedOn = true;
-        Console.WriteLine("Embedded device is turned on");
     }
 
     public void Connect()
@@ -51,7 +51,6 @@ public class EmbeddedDevice : Device
     
     public override string ToString()
     {
-        return $"Embedded device Id: {Id}, Name: {Name}, Is turned on: {IsTurnedOn}, IP address: {IpAddress}," +
-               $" Network name: {NetworkName}";
+        return base.ToString() + $"IP address: {IpAddress}, Network name: {NetworkName}";
     }
 }

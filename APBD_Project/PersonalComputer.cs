@@ -1,22 +1,20 @@
 namespace APBD_Project;
-
+/// <summary>
+/// Additional information about the PersonalComputer device, such as the operating system
+/// </summary>
 public class PersonalComputer : Device
 {
     public string OperatingSystem { get; set; }
 
     public override void TurnOn()
     {
-        if (IsTurnedOn != false)
-            Console.WriteLine($"The device {Name} is already turned on");
         if (string.IsNullOrEmpty(OperatingSystem)) 
             throw new EmptySystemException("Operating system isn't installed");
-        IsTurnedOn = true;
-        Console.WriteLine("Personal computer is turned on");
+        base.TurnOn();
     }
     
     public override string ToString()
     {
-        return $"Personal computer Id: {Id}, Name: {Name}, Is turned on: {IsTurnedOn}, " +
-               $"Operating system: {OperatingSystem}";
+        return base.ToString() + $", Operating system: {OperatingSystem}";
     }
 }
